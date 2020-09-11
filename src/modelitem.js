@@ -1,3 +1,4 @@
+import { observable, action } from 'mobx';
 
 
 /**
@@ -7,8 +8,24 @@
  *
  * Each bound node in an instance has exactly one ModelItem associated with it.
  */
+
 export class ModelItem {
 
+    ref = '';
+
+    readonly = false;
+
+    relevant = true;
+
+    required = false;
+
+    valid = true;
+
+    type = 'string';
+
+    node = {};
+
+    value = '';
 
     constructor(ref,
                 readonly,
@@ -24,6 +41,8 @@ export class ModelItem {
         this.valid = valid;
         this.type = type;
         this.node = node;
+        observable.box(this.node);
+        observable.box(this.value);
         // this.value = this._getValue();
     }
 

@@ -217,7 +217,7 @@ export class XfForm extends LitElement {
 
         await this.updateComplete;
         console.log('initUI', this);
-        this.refresh();
+        // this.refresh();
     }
 
     _displayMessage(e) {

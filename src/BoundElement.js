@@ -1,5 +1,6 @@
 import {LitElement, html, css} from 'lit-element';
 
+import { MobxLitElement } from '../node_modules/@adobe/lit-mobx/lit-mobx.js';
 
 import fx from './output/fontoxpath.js';
 import {ModelItem} from './modelitem.js';
@@ -10,11 +11,11 @@ import evaluateXPathToFirstNode from './output/fontoxpath.js';
 import evaluateXPathToNodes from './output/fontoxpath.js';
 import evaluateXPath from './output/fontoxpath.js';
 import {XPathUtil} from "./xpath-util";
+import {observable} from "mobx";
 
 // import parseScript from './output/fontoxpath.js';
 
-export class BoundElement extends LitElement {
-
+export class BoundElement extends MobxLitElement {
 
     static get properties() {
         return {
@@ -43,7 +44,7 @@ export class BoundElement extends LitElement {
     }
 
     init(){
-
+        observable(this.modelItem);
     }
 
     _evalInContext(){

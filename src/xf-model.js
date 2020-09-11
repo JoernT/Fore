@@ -1,4 +1,5 @@
-import {LitElement, css} from 'lit-element';
+import {LitElement, html, css} from 'lit-element';
+import { observable, autorun, action , trace} from 'mobx';
 
 import * as fontoxpath from './output/fontoxpath.js';
 import fx from "./output/fontoxpath";
@@ -45,24 +46,39 @@ export class XfModel extends LitElement {
         this.id = '';
         this.instances = [];
         this.modelItems = [];
+        // observable.box(this.modelItems);
         this.defaultContext = {};
 
         this.addEventListener('model-construct', this._modelConstruct);
         this.addEventListener('ready', this._ready);
 
-
     }
+
+    firstUpdated(_changedProperties) {
+        this.modelItemStore = observable({
+            modelStoreItems:[],
+
+        });
+        this.modelItemStore.modelStoreItems = this.modelItems;
+        console.log('modelItemStore ', this.modelItemStore)
+    }
+
+    autorun(){
+        console.log(this.modelItemStore);
+        this.modelItemStore.modelStoreItems = this.modelItems;
+    }
+
 
 /*
     render() {
         return html`
-             <slot></slot>
+
         `;
     }
 */
 
     _modelConstruct(e) {
-        // console.log('MODEL::model-construct received ', this.id);
+        console.log('MODEL::model-construct received ', this.id);
 
 
             const instances = this.querySelectorAll('xf-instance');
@@ -101,6 +117,7 @@ export class XfModel extends LitElement {
     registerModelItem(modelItem){
         console.log('ModelItem registered ', modelItem);
         this.modelItems.push(modelItem);
+        this.modelItemStore.modelStoreItems.push(modelItem);
     }
 
     /**
@@ -126,8 +143,14 @@ export class XfModel extends LitElement {
             bind.init(this);
         });
 */
+        this.modelItemStore.modelStoreItems = this.modelItems;
         console.log('rebuild finished with modelItems ', this.modelItems);
+        console.log('rebuild finished with modelStoreItems ', this.modelItemStore.modelStoreItems);
+
+        trace(this.modelItemStore.modelStoreItems);
+
         console.groupEnd();
+
     //
     }
 
@@ -211,7 +234,9 @@ export class XfModel extends LitElement {
 
     _handleModelConstructDone(e){
         console.log('_handleModelConstructDone');
-        this.refresh();
+        // this.refresh();
+        this.updateModel();
+        this.autorun();
     }
 
 
@@ -260,6 +285,8 @@ export class XfModel extends LitElement {
 
     _ready(e) {
         console.log('model is ready');
+        this.autorun();
+        trace(this.modelItemStore.modelStoreItems);
     }
 
     createRenderRoot() {

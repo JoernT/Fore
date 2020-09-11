@@ -31,6 +31,7 @@ export default class XfAbstractControl extends UiElement {
 
     firstUpdated(_changedProperties) {
         console.log('firstUpdated ', this);
+        console.log('firstUpdated ', this.value);
         this.control = this.shadowRoot.querySelector('#control');
     }
 
@@ -53,6 +54,7 @@ export default class XfAbstractControl extends UiElement {
 
 
         // this.value = this.getValue();
+        this.value = this.getModelItem().value;
         this.value = mi.value;
 
 
@@ -75,10 +77,12 @@ export default class XfAbstractControl extends UiElement {
         // console.log('mip required', mi.required);
         if (this.isRequired() !== mi.required) {
             if (mi.required) {
-                this.control.setAttribute('required','required');
+                // this.control.setAttribute('required','required');
+                this.setAttribute('required','required');
                 this.dispatchEvent(new CustomEvent('required', {}));
             } else {
-                this.control.removeAttribute('required');
+                // this.control.removeAttribute('required');
+                this.removeAttribute('required');
                 this.dispatchEvent(new CustomEvent('optional', {}));
             }
         }
@@ -88,11 +92,13 @@ export default class XfAbstractControl extends UiElement {
         // console.log('mip readonly', mi.readonly);
         if (this.isReadonly() !== mi.readonly) {
             if (mi.readonly) {
-                this.control.setAttribute('readonly','readonly');
+                // this.control.setAttribute('readonly','readonly');
+                this.setAttribute('readonly','readonly');
                 this.dispatchEvent(new CustomEvent('readonly', {}));
             }
             if(!mi.readonly){
-                this.control.removeAttribute('readonly');
+                // this.control.removeAttribute('readonly');
+                this.removeAttribute('readonly');
                 this.dispatchEvent(new CustomEvent('readwrite', {}));
             }
         }
@@ -176,7 +182,8 @@ export default class XfAbstractControl extends UiElement {
     }
 
     isEnabled(){
-        if(this.control.style.display === 'none'){
+        // if(this.control.style.display === 'none'){
+        if(this.style.display === 'none'){
             return false;
         }
         return true;

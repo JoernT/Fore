@@ -22,19 +22,24 @@ export class XfOutput extends XfAbstractControl {
 
     render() {
         return html`
-            <span id="control">${this.value}</span>
+            <span id="control">${this.modelItem.value}</span>
         `;
     }
 
-/*
-    getControlValue() {
-        // super.getControlValue();
-        console.log('output control value ', this.value);
-        // console.log('output control value ', this.getValue());
-        return this.shadowRoot.querySelector('#control');
-        // return this.value;
+    firstUpdated(_changedProperties) {
+        console.log('firstUpdated ', this);
+        console.log('firstUpdated ', this.value);
     }
-*/
+
+        /*
+            getControlValue() {
+                // super.getControlValue();
+                console.log('output control value ', this.value);
+                // console.log('output control value ', this.getValue());
+                return this.shadowRoot.querySelector('#control');
+                // return this.value;
+            }
+        */
 
     isRequired() {
         console.log('Output isrequired');

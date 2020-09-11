@@ -62,7 +62,7 @@ export class XfAction extends BoundElement{
         }
         if(this.needsRefresh){
             // this.closest('xf-form').refresh();
-            document.querySelector('xf-form').refresh();
+            // document.querySelector('xf-form').refresh();
         }
     }
 
