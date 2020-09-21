@@ -50,37 +50,57 @@ export class XfInstance extends ForeElement {
 */
 
     init(){
-        // console.log('xf-instance init');
-        if(this.src === '#querystring' ){
-            const query = new URLSearchParams(location.search);
-            console.log('query', query);
+        return new Promise((resolve,reject) => {
 
-            // let instanceData = document.createDocument();
-            let instanceData = document.implementation.createDocument(null,'data','xml');
-            console.log('new doc ', instanceData);
-
-            // const root = document.createElement('data');
-            // instanceData.appendChild(root);
-            for(const p of query){
-                let n = document.createElement(p[0]);
-                n.appendChild(document.createTextNode(p[1]));
-                instanceData.documentElement.appendChild(n);
-            };
-
-            this.instanceData = instanceData;
-            this.instanceData.firstElementChild.setAttribute('id',this.id);
-
-            // this.instanceData.firstElementChild.setAttribute('id',this.id);
-            // console.log('created instance from queryString ', this.instanceData);
-            // console.log('created instance from queryString ', this.instanceData);
+            setTimeout(() => {
 
 
-            // const result = fx.evaluateXPathToFirstNode('param1', instanceData.childNodes[0], null, {});
-            // console.log(">>>>>result ", result)
 
-        }else if(this.childNodes.length !== 0){
-            this._useInlineData();
-        }
+                // console.log('xf-instance init');
+                if(this.src === '#querystring' ){
+                    const query = new URLSearchParams(location.search);
+                    console.log('query', query);
+
+                    // let instanceData = document.createDocument();
+                    let instanceData = document.implementation.createDocument(null,'data','xml');
+                    console.log('new doc ', instanceData);
+
+                    // const root = document.createElement('data');
+                    // instanceData.appendChild(root);
+                    for(const p of query){
+                        let n = document.createElement(p[0]);
+                        n.appendChild(document.createTextNode(p[1]));
+                        instanceData.documentElement.appendChild(n);
+                    }
+                    this.instanceData = instanceData;
+                    this.instanceData.firstElementChild.setAttribute('id',this.id);
+
+                    // this.instanceData.firstElementChild.setAttribute('id',this.id);
+                    // console.log('created instance from queryString ', this.instanceData);
+                    // console.log('created instance from queryString ', this.instanceData);
+
+
+                    // const result = fx.evaluateXPathToFirstNode('param1', instanceData.childNodes[0], null, {});
+                    // console.log(">>>>>result ", result)
+
+                }else if(this.childNodes.length !== 0){
+                    this._useInlineData();
+                }
+
+
+                if(this.instanceData){
+                    resolve(this.instanceData);
+                }else {
+                    reject('shit happened');
+                }
+                // return resolve(this.instanceData);
+
+            },1);
+
+
+        });
+
+
 
         // this.shadowRoot.getElementById('data').appendChild(this.instanceData.cloneNode(true));
     }
@@ -167,6 +187,7 @@ export class XfInstance extends ForeElement {
         console.log('xf-instance data: ', this.instanceData);
         this.instanceData.firstElementChild.setAttribute('id',this.id);
         // console.log('xf-instance data ', this.instanceData);
+
     }
 
 /*

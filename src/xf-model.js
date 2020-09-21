@@ -66,26 +66,45 @@ export class XfModel extends LitElement {
 
 
             const instances = this.querySelectorAll('xf-instance');
+            this.instances = Array.from(instances);
+
+            await instances[0].init();
 
             if (instances.length > 0) {
-                // console.group('init instances');
+                console.group('init instances');
+
+
+
+                Promise.all(
+                    this.instances.map(async (instance) => {
+                        const instanceData = await instance.init();
+                        console.log('instanceData from Promise ', instanceData);
+                    })
+                ).then(() => {
+                    console.groupEnd();
+
+
+                    // console.log('model instances ', this.instances);
+
+                    this._initOutermostBindings();
+
+                    this.updateModel();
+                    // console.groupEnd();
+                    // console.log('dispatching model-construct-done');
+                    this.dispatchEvent(new CustomEvent('model-construct-done', {
+                        composed: true,
+                        bubbles: true,
+                        detail: {model: this}
+                    }));
+
+                });
+
+
+/*
                 instances.forEach(instance => {
                     instance.init();
                 });
-                this.instances = Array.from(instances);
-                console.groupEnd();
-                // console.log('model instances ', this.instances);
-
-                this._initOutermostBindings();
-
-                this.updateModel();
-                // console.groupEnd();
-                // console.log('dispatching model-construct-done');
-                this.dispatchEvent(new CustomEvent('model-construct-done', {
-                    composed: true,
-                    bubbles: true,
-                    detail: {model: this}
-                }));
+*/
             } else {
                 this._initOutermostBindings();
                 this.dispatchEvent(new CustomEvent('model-construct-done', {

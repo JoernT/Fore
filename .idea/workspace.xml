@@ -3,10 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="2c33f0d5-ebbc-4586-bb68-69b53b4adc15" name="Default" comment="fixed xf-input - control doesn't have to look after lifecycle&#10;as it uses the action for that.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/todo.html" beforeDir="false" afterPath="$PROJECT_DIR$/demo/todo.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BoundElement.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/BoundElement.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/xf-repeatitem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/xf-repeatitem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/xf-form.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/xf-form.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ForeElement.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/ForeElement.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/xf-instance.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/xf-instance.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/xf-model.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/xf-model.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -41,7 +40,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="fonto" />
+        <entry key="$PROJECT_DIR$" value="dev" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -211,21 +210,9 @@
       <workItem from="1600333512073" duration="27199000" />
       <workItem from="1600371565523" duration="7680000" />
       <workItem from="1600432250803" duration="15376000" />
-      <workItem from="1600515820910" duration="28623000" />
-    </task>
-    <task id="LOCAL-00004" summary="cleanup + using 'fore-' as prefix everywhere now">
-      <created>1549979906413</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1549979906413</updated>
-    </task>
-    <task id="LOCAL-00005" summary="pushing current state - still prototyping">
-      <created>1550140529954</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1550140529954</updated>
+      <workItem from="1600515820910" duration="29072000" />
+      <workItem from="1600699977562" duration="2840000" />
+      <workItem from="1600703138604" duration="2197000" />
     </task>
     <task id="LOCAL-00006" summary="another example with 2 instances and nested binds">
       <created>1550141721569</created>
@@ -556,7 +543,21 @@
       <option name="project" value="LOCAL" />
       <updated>1600544052111</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="fixed xf-input - control doesn't have to look after lifecycle&#10;as it uses the action for that.">
+      <created>1600544513632</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1600544513632</updated>
+    </task>
+    <task id="LOCAL-00054" summary="test for instance() function">
+      <created>1600704872616</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1600704872617</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -592,7 +593,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
-    <MESSAGE value="added a comment" />
     <MESSAGE value="local binding and updating of values works" />
     <MESSAGE value="refactored xf-form; implemented basic setvalue action" />
     <MESSAGE value="added non-incremental input to helloworld demo;&#10;cleanup and documentation of xf-form;&#10;basic impl of control properties" />
@@ -617,7 +617,8 @@
     <MESSAGE value="wait for last updateComplete on last repeat:&#10;fixed xf-input model usage" />
     <MESSAGE value="back to flat refresh - repeat has no special magic" />
     <MESSAGE value="fixed xf-input - control doesn't have to look after lifecycle&#10;as it uses the action for that." />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed xf-input - control doesn't have to look after lifecycle&#10;as it uses the action for that." />
+    <MESSAGE value="test for instance() function" />
+    <option name="LAST_COMMIT_MESSAGE" value="test for instance() function" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
