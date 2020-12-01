@@ -182,6 +182,7 @@ export class XfBind extends ForeElement {
         console.log('init binding ', this);
         this.instanceId = this._getInstanceId();
 
+
         this.evalInContext();
         this._createModelItems();
 
@@ -192,33 +193,37 @@ export class XfBind extends ForeElement {
     }
 
     _buildBindGraph(){
-        this.nodeset.forEach(node => {
+        if(this.isJSON){
 
-            let path = fx.evaluateXPath('path()',node);
-            /*
-                if(!this.model.mainGraph.hasNode(path)){
-                    this.model.mainGraph.addNode(path,{node:node});
-                }
-            */
+        }else{
+            this.nodeset.forEach(node => {
+
+                let path = fx.evaluateXPath('path()',node);
+                /*
+                    if(!this.model.mainGraph.hasNode(path)){
+                        this.model.mainGraph.addNode(path,{node:node});
+                    }
+                */
 
 
-            const calculateRefs = this._getReferencesForProperty(this.calculate,node);
-            this._addDependencies(calculateRefs,node,path,'calculate');
+                const calculateRefs = this._getReferencesForProperty(this.calculate,node);
+                this._addDependencies(calculateRefs,node,path,'calculate');
 
-            const readonlyRefs = this._getReferencesForProperty(this.readonly,node);
-            this._addDependencies(readonlyRefs,node,path,'readonly');
+                const readonlyRefs = this._getReferencesForProperty(this.readonly,node);
+                this._addDependencies(readonlyRefs,node,path,'readonly');
 
-            // const requiredRefs = this.requiredReferences;
-            const requiredRefs = this._getReferencesForProperty(this.required,node);
-            this._addDependencies(requiredRefs,node,path,'required');
+                // const requiredRefs = this.requiredReferences;
+                const requiredRefs = this._getReferencesForProperty(this.required,node);
+                this._addDependencies(requiredRefs,node,path,'required');
 
-            const relevantRefs = this._getReferencesForProperty(this.relevant,node);
-            this._addDependencies(relevantRefs,node,path,'relevant');
+                const relevantRefs = this._getReferencesForProperty(this.relevant,node);
+                this._addDependencies(relevantRefs,node,path,'relevant');
 
-            const constraintRefs = this._getReferencesForProperty(this.constraint,node);
-            this._addDependencies(constraintRefs,node,path,'constraint');
+                const constraintRefs = this._getReferencesForProperty(this.constraint,node);
+                this._addDependencies(constraintRefs,node,path,'constraint');
 
-        });
+            });
+        }
 
     }
 
@@ -325,7 +330,12 @@ export class XfBind extends ForeElement {
 				}
 			}
 
-            this.nodeset = evaluateXFormsXPathToNodes(this.ref, inscopeContext, formElement, this.namespaceResolver)
+			if(inscopeContext instanceof Element){
+                this.nodeset = evaluateXFormsXPathToNodes(this.ref, inscopeContext, formElement, this.namespaceResolver)
+            }else {
+			    this.nodeset = inscopeContext[this.ref];
+			    this.isJSON = true;
+            }
         }
     }
 
@@ -437,15 +447,21 @@ export class XfBind extends ForeElement {
         // let value = null;
         const mItem = {};
         let targetNode = {};
-        if(node.nodeType === node.TEXT_NODE){
-            // const parent = node.parentNode;
-            // console.log('PARENT ', parent);
-            targetNode = node.parentNode;
-        }else {
+
+        let path = undefined;
+        if(this.isJSON){
             targetNode = node;
+        }else{
+            if(node.nodeType === node.TEXT_NODE){
+                // const parent = node.parentNode;
+                // console.log('PARENT ', parent);
+                targetNode = node.parentNode;
+            }else {
+                targetNode = node;
+            }
+            path = fx.evaluateXPath('path()',node);
         }
 
-        const path = fx.evaluateXPath('path()',node);
         // const shortPath = this._shortenPath(path);
 
         // ### constructiong default modelitem - will get evaluated during reaalculate()
@@ -486,6 +502,7 @@ export class XfBind extends ForeElement {
     }
 
 
+/*
     _initBooleanModelItemProperty(property, node){
         //evaluate expression to boolean
         const propertyExpr = this[property];
@@ -500,6 +517,7 @@ export class XfBind extends ForeElement {
         }
         return result;
     }
+*/
 
 
     _shortenPath(path){

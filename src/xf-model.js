@@ -244,7 +244,12 @@ export class XfModel extends LitElement {
                     const {constraint} = bind;
                     let constraintValid;
                     if (constraint) {
-                        const compute = Fore.evaluateToBoolean(constraint, modelItem.node, this, Fore.namespaceResolver);
+                        let compute;
+                        if(this.type === 'xml'){
+                            compute = Fore.evaluateToBoolean(constraint, modelItem.node, this, Fore.namespaceResolver);
+                        }else{
+                            // compute = modelItem.node
+                        }
                         // item.required = compute;
                         constraintValid = compute;
                     }

@@ -24,6 +24,9 @@ export class XfInstance extends ForeElement {
             },
             model:{
                 type:Object
+            },
+            type:{
+                type: String
             }
         };
     }
@@ -34,6 +37,7 @@ export class XfInstance extends ForeElement {
         // this.instanceData = {};
         this.src = '';
         this.model = this.parentNode;
+        this.type = 'xml'
     }
 
     render() {
@@ -51,6 +55,17 @@ export class XfInstance extends ForeElement {
 
     init(){
         // console.log('xf-instance init');
+
+        if(this.type === 'xml'){
+            this._initXMLInstance();
+        }else{
+            this._initJSONInstance();
+        }
+
+        // this.shadowRoot.getElementById('data').appendChild(this.instanceData.cloneNode(true));
+    }
+
+    _initXMLInstance(){
         if(this.src === '#querystring' ){
             const query = new URLSearchParams(location.search);
             console.log('query', query);
@@ -81,8 +96,10 @@ export class XfInstance extends ForeElement {
         }else if(this.childNodes.length !== 0){
             this._useInlineData();
         }
+    }
 
-        // this.shadowRoot.getElementById('data').appendChild(this.instanceData.cloneNode(true));
+    _initJSONInstance(){
+        this.instanceData = JSON.parse(this.textContent);
     }
 
     evalXPath(xpath){
@@ -117,7 +134,11 @@ export class XfInstance extends ForeElement {
 
     getDefaultContext(){
         // console.log('getDefaultContext ', this.instanceData.firstElementChild);
-        return this.instanceData.firstElementChild;
+        if(this.type === 'xml'){
+            return this.instanceData.firstElementChild;
+        }else{
+            return this.instanceData;
+        }
     }
 
     _useInlineData(){
