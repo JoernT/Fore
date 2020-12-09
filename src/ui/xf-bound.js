@@ -20,9 +20,6 @@ class XfBound extends XfAbstractControl {
     static get properties() {
         return {
             ...super.properties,
-            control:{
-                type:Object
-            },
             updateEvent:{
                 type: String,
                 attribute:'update-event'
@@ -66,6 +63,7 @@ class XfBound extends XfAbstractControl {
                const defaultSlot = slot;
                const control = slot.assignedElements({flatten:true})[0];
                this.control = control;
+               console.log('xf-bound control: ', this.control);
 
                control.addEventListener(this.updateEvent,(e) => {
                    console.log('eventlistener ', this.updateEvent);
@@ -89,6 +87,7 @@ class XfBound extends XfAbstractControl {
         });
 
 
+
 /*
         this.firstElementChild.addEventListener(this.updateEvent,(e) => {
             console.log('eventlistener ', this.updateEvent);
@@ -105,12 +104,41 @@ class XfBound extends XfAbstractControl {
 */
     }
 
+/*
+    refresh() {
+        // refresh() {
+        console.log('### XfAbstractControl.refresh on : ', this);
 
-    refresh(){
+
+        const currentVal = this.value;
+
+        // if(this.repeated) return ;
+        // await this.updateComplete;
+        if(this.isNotBound()) return;
+
+        this.evalInContext();
+        if(this.isBound()){
+            // this.control = this.shadowRoot.getElementById('control');
+            this.modelItem = this.getModelItem();
+            this.value = this.modelItem.value;
+
+            // if(!this.closest('xf-form').ready) return; // state change event do not fire during init phase (initial refresh)
+            // if(!this._getForm().ready) return; // state change event do not fire during init phase (initial refresh)
+            if(currentVal !== this.value){
+                this.dispatchEvent(new CustomEvent('value-changed', {}));
+            }
+            // this.requestUpdate();
+            this.handleModelItemProperties();
+        }
+    }
+*/
+
+/*
+    async refresh(){
+        await this.updateComplete;
         super.refresh();
         console.log('xf-bound refresh');
 
-        // this.firstElementChild.value = this.value;
 
         // this.control.value = this.getModelItem().value;
         console.log('valueProp ', this.valueProp);
@@ -130,7 +158,7 @@ class XfBound extends XfAbstractControl {
 
 
     }
-
+*/
 
 }
 

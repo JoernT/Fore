@@ -19,6 +19,7 @@ import './ui/xf-group.js';
 import './ui/xf-button.js';
 import './ui/xf-output.js';
 import './ui/xf-input.js';
+import './ui/xf-bound.js';
 
 // action classes
 import './actions/xf-action.js';
@@ -122,6 +123,7 @@ export class XfForm extends LitElement {
      * the bound modelItem to the bound element.
      */
     async refresh () {
+    // refresh () {
 
         console.group('### refresh');
 

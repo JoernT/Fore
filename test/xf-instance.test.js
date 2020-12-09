@@ -192,6 +192,44 @@ describe('initialize instance', () => {
 
     });
 
+	it('Allows work with JSON instance', async () => {
+        const el =  (
+            await fixtureSync(html`
+                <xf-form>
+                    <xf-model id="model1">
+
+                        <xf-instance type="json">
+                            {
+                                "item":"item1",
+                                "item2":"item2"
+                            }
+                        </xf-instance>
+
+                        <xf-bind ref="item"></xf-bind>
+                    </xf-model>
+                </xf-form>
+            `)
+        );
+
+        await elementUpdated(el);
+
+        const instances = el.querySelectorAll('xf-instance');
+        expect(instances[0].id).to.equal('default');
+        expect(instances[0].type).to.equal('json');
+        console.log('+++++++ ', instances[0].instanceData);
+        expect(instances[0].instanceData.item).to.equal('item1');
+
+/*
+        const model = el.querySelector('xf-model');
+        await elementUpdated(model);
+        const {modelItems} = model;
+        // expect(modelItems[0].required).to.be.false;
+        console.log('>>>>>>>>>>>< modelitem ', modelItems[0])
+        expect(modelItems[0].required).to.equal(false);
+*/
+
+    });
+
     /*
         it('does NOT copy a "body" element from inline data', async () => {
             const el =  (

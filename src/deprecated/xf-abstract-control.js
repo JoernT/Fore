@@ -143,21 +143,21 @@ export class XfAbstractControl extends BoundElementMixin(PolymerElement) {
             // console.log('XfControl.applyProperties alert: ', this.modelItem.alert);
             this.alert = this.modelItem.alert;
         }
-        if (this.modelItem.isReadonly !== undefined) {
+        if (this.modelItem.readonly !== undefined) {
             // console.log('XfControl.applyProperties readonly: ', this.modelItem.isReadonly);
-            this.readonly = this.modelItem.isReadonly;
+            this.readonly = this.modelItem.readonly;
         }
-        if (this.modelItem.isRequired !== undefined) {
-            // console.log('XfControl.applyProperties required: ', this.modelItem.isRequired);
-            this.required = this.modelItem.isRequired;
+        if (this.modelItem.required !== undefined) {
+            // console.log('XfControl.applyProperties required: ', this.modelItem.required);
+            this.required = this.modelItem.required;
         }
-        if (this.modelItem.isRelevant !== undefined) {
-            // console.log('XfControl.applyProperties relevant: ', this.modelItem.isRelevant);
-            this.relevant = this.modelItem.isRelevant;
+        if (this.modelItem.relevant !== undefined) {
+            // console.log('XfControl.applyProperties relevant: ', this.modelItem.relevant);
+            this.relevant = this.modelItem.relevant;
         }
-        if (this.modelItem.isRequired !== undefined) {
-            // console.log('XfControl.applyProperties valid: ', this.modelItem.isRequired);
-            this.valid = this.modelItem.isRequired;
+        if (this.modelItem.required !== undefined) {
+            // console.log('XfControl.applyProperties valid: ', this.modelItem.required);
+            this.valid = this.modelItem.required;
         }
         if (this.modelItem.type !== undefined) {
             // console.log('XfControl.applyProperties type: ', this.modelItem.type);

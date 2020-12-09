@@ -26,10 +26,11 @@
                 <checked>false</checked>
                 <listitem></listitem>
             </data>
-            <xf-bind ref="item"></xf-bind>
-            <xf-bind ref="checked"></xf-bind>
-            <xf-bind ref="listitem"></xf-bind>
         </xf-instance>
+        <xf-bind ref="item"></xf-bind>
+        <xf-bind ref="checked"></xf-bind>
+        <xf-bind ref="listitem"></xf-bind>
+
     </xf-model>
     <xf-group>
         <xf-bound ref="item" update-event="blur" value-prop="value">
@@ -44,32 +45,29 @@
 
         <xf-bound ref="checked" update-event="input" value-prop="checked">
             <label for="check1" slot="label">native checkbox</label>
-            <input id="check1" type="checkbox">
+            <input id="check1" name="check1" type="checkbox">
+            <span>some hint</span>
         </xf-bound>
-
-        <xf-bound ref="checked" update-event="change" value-prop="checked">
-            <paper-checkbox>paper checkbox</paper-checkbox>
-        </xf-bound>
-
-        <xf-bound ref="listitem" update-event="change">
-            <select>
-                <option value=""></option>
-                <option value="foo">foo</option>
-                <option value="bar">bar</option>
-            <select>
-        </xf-bound>
-        Selected list item :<xf-output ref="listitem"></xf-output>
-
-
-
 
         <!--
-                <label for="check2">second</label>
-                <input id="check2" name="value2" type="checkbox">
+                <xf-bound ref="checked" update-event="change" value-prop="checked">
+                    <paper-checkbox>paper checkbox</paper-checkbox>
+                </xf-bound>
 
-        <pb-select ref="item" update-event="iron-select">
+                <xf-bound ref="listitem" update-event="change">
+                    <select>
+                        <option value=""></option>
+                        <option value="foo">foo</option>
+                        <option value="bar">bar</option>
+                    <select>
+                </xf-bound>
+        -->
 
-        </pb-select>
+        <p>Selected list item :<xf-output ref="listitem"></xf-output></p>
+
+
+
+
     </xf-group>
 </xf-form>
 

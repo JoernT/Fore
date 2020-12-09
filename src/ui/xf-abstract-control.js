@@ -44,6 +44,11 @@ export default class XfAbstractControl extends BoundElement {
         this.display = this.style.display;
         // this.control = this.shadowRoot.querySelector('#control');
         // this.control = this.shadowRoot.getElementById('control');
+
+        this.addEventListener('value-changed', e => {
+           console.log('value-changed ', e);
+           this.handleModelItemProperties();
+        });
     }
 
 
@@ -52,6 +57,7 @@ export default class XfAbstractControl extends BoundElement {
      * (re)apply all state properties to this control.
      */
     async refresh() {
+    // refresh() {
         console.log('### XfAbstractControl.refresh on : ', this);
 
 
@@ -59,22 +65,27 @@ export default class XfAbstractControl extends BoundElement {
 
         // if(this.repeated) return ;
         if(this.isNotBound()) return;
+        // this.handleModelItemProperties();
 
         this.evalInContext();
-        await this.updateComplete;
         if(this.isBound()){
-            this.control = this.shadowRoot.getElementById('control');
+            // this.control = this.shadowRoot.getElementById('control');
             this.modelItem = this.getModelItem();
             this.value = this.modelItem.value;
 
             // if(!this.closest('xf-form').ready) return; // state change event do not fire during init phase (initial refresh)
             // if(!this._getForm().ready) return; // state change event do not fire during init phase (initial refresh)
+            // this.requestUpdate();
+            // this.handleModelItemProperties();
+            // this.requestUpdate();
+
             if(currentVal !== this.value){
                 this.dispatchEvent(new CustomEvent('value-changed', {}));
             }
-            // this.requestUpdate();
-            this.handleModelItemProperties();
+
         }
+        await this.updateComplete;
+
     }
 
 /*
@@ -85,9 +96,11 @@ export default class XfAbstractControl extends BoundElement {
 */
 
     handleModelItemProperties(){
-        this.handleRequired();
-        this.handleReadonly();
-        this.handleValid();
+        const control = this.children[1]; // child in second slot
+
+        this.handleRequired(control);
+        this.handleReadonly(control);
+        this.handleValid(control);
         this.handleRelevant();
     }
 
@@ -95,12 +108,18 @@ export default class XfAbstractControl extends BoundElement {
         return this.getModel().parentNode;
     }
 
-    handleRequired() {
+    handleRequired(control) {
         // console.log('mip required', this.modelItem.required);
         if (this.isRequired() !== this.modelItem.required) {
             if (this.modelItem.required) {
                 // this.control.setAttribute('required','required');
-                this.shadowRoot.getElementById('control').setAttribute('required','required');
+                // if(this.control === {}){
+                // console.log('control ', this.children[1])
+                    // this.control = this.getElementById('control');
+                    // this.control = this.children[1]; // child in second slot
+                // }
+                // this.control.setAttribute('required','required');
+                control.setAttribute('required','required');
                 this.dispatchEvent(new CustomEvent('required', {}));
             } else {
                 this.control.removeAttribute('required');
@@ -109,23 +128,24 @@ export default class XfAbstractControl extends BoundElement {
         }
     }
 
-    handleReadonly(){
+    handleReadonly(control){
         // console.log('mip readonly', this.modelItem.isReadonly);
-        if (this.isReadonly() !== this.modelItem.readonly) {
+
+        if (this.isReadonly(control) !== this.modelItem.readonly) {
             if (this.modelItem.readonly) {
-                this.control.setAttribute('readonly','readonly');
+                control.setAttribute('readonly','readonly');
                 this.dispatchEvent(new CustomEvent('readonly', {}));
             }
             if(!this.modelItem.readonly){
-                this.control.removeAttribute('readonly');
+                control.removeAttribute('readonly');
                 this.dispatchEvent(new CustomEvent('readwrite', {}));
             }
         }
     }
 
-    handleValid(){
+    handleValid(control){
         // console.log('mip valid', this.modelItem.required);
-        if (this.isValid() !== this.modelItem.required) {
+        if (this.isValid(control) !== this.modelItem.required) {
             if (this.modelItem.required) {
                 this.dispatchEvent(new CustomEvent('valid', {}));
             } else {
@@ -192,15 +212,15 @@ export default class XfAbstractControl extends BoundElement {
         return false;
     }
 
-    isValid(){
-        if(this.control.valid){
+    isValid(control){
+        if(control.valid){
             return true;
         }
         return false;
     }
 
-    isReadonly(){
-        if(this.control.hasAttribute('readonly')){
+    isReadonly(control){
+        if(control.hasAttribute('readonly')){
             return true;
         }
         return false;

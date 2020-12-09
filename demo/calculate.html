@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes" name="viewport"/>
+
+    <title>calculate</title>
+
+    <script src="../../assets/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+
+    <link href="../resources/vars.css" rel="stylesheet">
+    <style>
+        .dynamic {
+            background: #76ff03;
+        }
+
+        xf-input[required]:after {
+            content: "*";
+            display: inline;
+            color: red;
+        }
+    </style>
+</head>
+<body unresolved="unresolved">
+
+
+<xf-form>
+<!--    <xf-message event="refresh-done">refresh has been done</xf-message>-->
+
+    <xf-model id="model1">
+        <xf-instance>
+            <data>
+                <amount>1000</amount>
+                <VAT>19</VAT>
+                <total></total>
+                <rebate>0.9</rebate>
+                <grandtotal></grandtotal>
+            </data>
+        </xf-instance>
+
+<!--        <xf-bind ref="amount"></xf-bind>-->
+<!--        <xf-bind ref="amount"></xf-bind>-->
+        <xf-bind ref="VAT" calculate="depends(../amount) div 100 * 19"></xf-bind>
+        <xf-bind ref="total" calculate="depends(../amount) + depends(../vat)"></xf-bind>
+        <xf-bind ref="grandtotal" calculate="depends(../total) * depends(../rebate)"></xf-bind>
+<!--        <xf-bind ref="grandtotal" calculate="depends(../total) * depends(../rebate)"></xf-bind>-->
+
+
+    </xf-model>
+    <xf-group collapse="true">
+
+
+        <h1 class="{class}">
+            Recalculation
+            <xf-output id="output" ref="amount">
+                <xf-label>Amount:</xf-label>
+            </xf-output>
+            <xf-output id="output" ref="vat">
+                <xf-label>VAT:</xf-label>
+            </xf-output>
+            <xf-output id="output" ref="rebate">
+                <xf-label>rebate:</xf-label>
+            </xf-output>
+            <xf-output id="output" ref="grandtotal">
+                <xf-label>grandtotal:</xf-label>
+            </xf-output>
+        </h1>
+
+<!--
+        <xf-button label="set A to B">
+            <xf-setvalue ref="a" value="B"></xf-setvalue>
+        </xf-button>
+-->
+    </xf-group>
+</xf-form>
+
+<script type="module" src="../src/app.js"></script>
+
+</body>
+</html>
