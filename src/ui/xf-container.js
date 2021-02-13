@@ -46,8 +46,10 @@ export class XfContainer extends foreElementMixin(LitElement) {
     /**
      * (re)apply all state properties to this control.
      */
-    refresh() {
+    async refresh() {
         console.log('### XfContainer.refresh on : ', this);
+
+        await this.updateComplete;
 
         if(this.isBound()){
             this.evalInContext();

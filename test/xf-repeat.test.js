@@ -11,6 +11,7 @@ import '../src/xf-repeat.js';
 import '../src/xf-repeatitem.js';
 */
 import '../src/ui/xf-repeat.js';
+import '../src/ui/xf-repeater.js';
 import {XfModel} from '../src/xf-model.js';
 
 
@@ -389,6 +390,101 @@ describe('initialize repeat', () => {
         const rItems = repeat.querySelectorAll('xf-repeatitem');
         console.log('xf-repeat ', repeat);
         expect(rItems.length).to.equal(3);
+
+
+        // expect(repeat.getModelItem()).to.equal(null);
+
+
+    });
+
+    it('repeats larger set', async () => {
+        const el =  (
+            await fixtureSync(html`
+                <xf-form>
+                    <xf-model id="record">
+            
+                        <xf-instance>
+                            <data>
+                                <task complete="false" due="2019-02-04">Pick up Milk</task>
+                                <task complete="true" due="2019-01-04">Make tutorial part 1</task>
+                                <task complete="true" due="2019-01-04">Make tutorial part 1</task>
+                                <task complete="true" due="2019-01-04">Make tutorial part 1</task>
+                                <task complete="true" due="2019-01-04">Make tutorial part 1</task>
+                                <task complete="true" due="2019-01-04">Make tutorial part 1</task>
+                                <task complete="true" due="2019-01-04">Make tutorial part 1</task>
+                                <task complete="true" due="2019-01-04">Make tutorial part 1</task>
+                                <task complete="true" due="2019-01-04">Make tutorial part 1</task>
+                                <task complete="true" due="2019-01-04">Make tutorial part 1</task>
+                                <task complete="true" due="2019-01-04">Make tutorial part 1</task>
+                                <task complete="true" due="2019-01-04">Make tutorial part 1</task>
+                                <task complete="true" due="2019-01-04">Make tutorial part 1</task>
+                                <task complete="true" due="2019-01-04">Make tutorial part 1</task>
+                                <task complete="true" due="2019-01-04">Make tutorial part 1</task>
+                                <task complete="true" due="2019-01-04">Make tutorial part 1</task>
+                                <task complete="true" due="2019-01-04">Make tutorial part 1</task>
+                                <task complete="true" due="2019-01-04">Make tutorial part 1</task>
+                                <task complete="true" due="2019-01-04">Make tutorial part 1</task>
+                                <task complete="true" due="2019-01-04">Make tutorial part 1</task>
+                                <task complete="true" due="2019-01-04">Make tutorial part 1</task>
+                                <task complete="true" due="2019-01-04">Make tutorial part 1</task>
+                                <task complete="true" due="2019-01-04">Make tutorial part 1</task>
+                                <task complete="false" due="2019-02-04">Pick up Milk</task>
+                                <task complete="true" due="2019-01-04">Make tutorial part 1</task>
+                                <task complete="true" due="2019-01-04">Make tutorial part 1</task>
+                                <task complete="true" due="2019-01-04">Make tutorial part 1</task>
+                                <task complete="true" due="2019-01-04">Make tutorial part 1</task>
+                                <task complete="true" due="2019-01-04">Make tutorial part 1</task>
+                                <task complete="true" due="2019-01-04">Make tutorial part 1</task>
+                                <task complete="true" due="2019-01-04">Make tutorial part 1</task>
+                                <task complete="true" due="2019-01-04">Make tutorial part 1</task>
+                                <task complete="true" due="2019-01-04">Make tutorial part 1</task>
+                                <task complete="true" due="2019-01-04">Make tutorial part 1</task>
+                                <task complete="true" due="2019-01-04">Make tutorial part 1</task>
+                                <task complete="true" due="2019-01-04">Make tutorial part 1</task>
+                                <task complete="true" due="2019-01-04">Make tutorial part 1</task>
+                                <task complete="true" due="2019-01-04">Make tutorial part 1</task>
+                                <task complete="true" due="2019-01-04">Make tutorial part 1</task>
+                                <task complete="true" due="2019-01-04">Make tutorial part 1</task>
+                                <task complete="true" due="2019-01-04">Make tutorial part 1</task>
+                                <task complete="true" due="2019-01-04">Make tutorial part 1</task>
+                                <task complete="true" due="2019-01-04">Make tutorial part 1</task>
+                                <task complete="true" due="2019-01-04">Make tutorial part 1</task>
+                                <task complete="true" due="2019-01-04">Make tutorial part 1</task>
+                                <task complete="true" due="2019-01-04">Make tutorial part 1</task>
+                            </data>
+                        </xf-instance>
+            
+            
+                        <xf-bind ref="task" readonly="count(../task) < 3">
+                            <xf-bind ref="./text()" required="true()"></xf-bind>
+                            <xf-bind ref="@complete" type="xs:boolean"></xf-bind>
+                            <xf-bind ref="@due" type="xs:date"></xf-bind>
+                        </xf-bind>
+            
+                    </xf-model>
+                    <xf-group>
+                        <h1>todos</h1>
+                           
+                        <xf-repeat id="todos" ref="task" focus-on-create="task" id="r-todos">
+                            <template>
+                                <xf-input label="Task" ref="." id="task" type="text"></xf-input>
+                            </template>
+                        </xf-repeat>
+                           
+                    </xf-group>
+                </xf-form>
+            `)
+        );
+
+        await elementUpdated(el);
+
+        const repeat = el.querySelector('xf-repeater');
+        await elementUpdated(repeat);
+
+        expect(repeat).to.exist;
+        const rItems = repeat.querySelectorAll('xf-repeatitem');
+        console.log('xf-repeat ', repeat);
+        expect(rItems.length).to.equal(46);
 
 
         // expect(repeat.getModelItem()).to.equal(null);

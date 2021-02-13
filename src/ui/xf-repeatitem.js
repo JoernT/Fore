@@ -71,17 +71,22 @@ export class XfRepeatitem extends XfContainer{
         });
     }
 
+/*
     firstUpdated(_changedProperties) {
         // console.log('### xf-repeatitem firstUpdated index ', this.index);
         // console.log('### xf-repeatitem firstUpdated nodeset ', this.nodeset);
         // console.log('### xf-repeatitem firstUpdated model ', this.model);
+
+
         this.dispatchEvent(new CustomEvent('repeatitem-created', {
             composed: true,
             bubbles: true,
             detail: {item: this}
         }));
+
         // this.init();
     }
+*/
 
     updated(_changedProperties) {
         super.updated(_changedProperties);
@@ -95,11 +100,12 @@ export class XfRepeatitem extends XfContainer{
 */
     }
 
-    refresh(){
+    async refresh(){
         console.log('refresh repeatitem: ',this.nodeset);
         if(!this.inited){
             this.init();
         }
+        await this.updateComplete;
         super.refresh();
         // await this.updateComplete;
 /*

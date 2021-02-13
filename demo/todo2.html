@@ -12,7 +12,7 @@
         import '../src/xf-model.js';
         import '../src/xf-bind.js';
         import '../src/xf-instance.js';
-        import '../src/ui/xf-repeat.js';
+        import '../src/ui/xf-repeater.js';
         import '../src/actions/xf-delete.js';
         import '../src/actions/xf-append.js';
         import '../src/ui/xf-input.js';
@@ -81,10 +81,6 @@
         [repeat-index]{
             border:white solid 2px;
         }
-
-        repeat-item{
-            display:block;
-        }
     </style>
 </head>
 <body unresolved="unresolved">
@@ -93,17 +89,21 @@
 
         <xf-instance>
             <data>
-                <task complete="false" due="2019-02-04">Pick up Milk</task>
-                <task complete="true" due="2019-01-04">Make tutorial part 1</task>
+                <task complete="true">Make tutorial part 1</task>
+                <task complete="true">Make tutorial part 1</task>
+                <task complete="true">Make tutorial part 1</task>
+                <task complete="true">Make tutorial part 1</task>
+                <task complete="true">Make tutorial part 1</task>
+                <task complete="true">Make tutorial part 1</task>
+                <task complete="true">Make tutorial part 1</task>
+                <task complete="true">Make tutorial part 1</task>
+                <task complete="true">Make tutorial part 1</task>
+                <task complete="true">Make tutorial part 1</task>
             </data>
         </xf-instance>
 
 
-        <xf-bind ref="task">
-            <xf-bind ref="./text()" required="true()"></xf-bind>
-            <xf-bind ref="@complete" type="xs:boolean"></xf-bind>
-            <xf-bind ref="@due" type="xs:date"></xf-bind>
-        </xf-bind>
+        <xf-bind ref="task"></xf-bind>
 
     </xf-model>
 <!--    <xf-group>-->
@@ -118,15 +118,7 @@
                         -->
 
 
-<!--
-        <xf-repeat focus-on-create="task" id="todos" id="r-todos" ref="task">
-            <template>
-                <div>foo</div>
-            </template>
-        </xf-repeat>
--->
-
-        <xf-repeat focus-on-create="task" id="todos" id="r-todos" ref="task">
+        <xf-repeater focus-on-create="task" id="todos" id="r-todos" ref="task">
             <template>
                 <xf-input id="task" label="Task" ref="." type="text"></xf-input>
                 <xf-input label="Due" ref="@due" type="date"></xf-input>
@@ -135,7 +127,7 @@
                     <xf-delete ref="."></xf-delete>
                 </xf-button>
             </template>
-        </xf-repeat>
+        </xf-repeater>
 
 <!--
         <xf-repeat focus-on-create="task" id="todos2" id="r-todos" ref="task">

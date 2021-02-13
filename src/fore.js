@@ -251,21 +251,25 @@ export class Fore{
 
 
     static refreshChildren(startElement){
-        const children = startElement.children;
-        if(children){
-            Array.from(children).forEach(element => {
 
-                // todo: later - check for AVTs
-                if (Fore.isUiElement(element.nodeName) && typeof element.refresh === 'function') {
-                    element.refresh();
-                }else{
-                    if(element.nodeName !== 'XF-MODEL'){
-                        Fore.refreshChildren(element);
+        return new Promise(((resolve,reject) => {
+            const children = startElement.children;
+            if(children){
+                Array.from(children).forEach(element => {
+
+                    // todo: later - check for AVTs
+                    if (Fore.isUiElement(element.nodeName) && typeof element.refresh === 'function') {
+                        element.refresh();
+                    }else{
+                        if(element.nodeName !== 'XF-MODEL'){
+                            Fore.refreshChildren(element);
+                        }
                     }
-                }
 
-            });
-        }
+                });
+            }
+            resolve("done");
+        }));
         // startElement.requestUpdat();
     }
 

@@ -134,7 +134,7 @@ export class XfForm extends LitElement {
         console.group('### refresh');
         const uiElements = this.querySelectorAll('*');
         await this.updateComplete;
-        Fore.refreshChildren(this);
+        await Fore.refreshChildren(this);
         console.log('### <<<<< dispatching refresh-done - end of update cycle >>>>>');
         // this.dispatchEvent(new CustomEvent('refresh-done', {detail:'foo'}));
         this.dispatchEvent(new CustomEvent('refresh-done'));
@@ -202,10 +202,9 @@ export class XfForm extends LitElement {
      async _initUI(){
         console.log('### _initUI()');
         await this.updateComplete;
+        // await this.refresh();
         await this.refresh();
         this.ready = true;
-        console.log('')
-         console.log('########## FORE: form fully initialized... ##########');
          console.log('### <<<<< dispatching ready >>>>>');
          this.dispatchEvent(new CustomEvent('ready', {}));
      }

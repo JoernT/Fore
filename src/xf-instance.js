@@ -201,7 +201,7 @@ export class XfInstance extends LitElement {
 
         // this.shadowRoot.appendChild(this.instanceData.firstElementChild);
 
-        console.log('xf-instance data: ', this.instanceData);
+        // console.log('xf-instance data: ', new XMLSerializer.serializeToString(this.instanceData));
         this.instanceData.firstElementChild.setAttribute('id',this.id);
         // console.log('xf-instance data ', this.instanceData);
     }
