@@ -75,7 +75,6 @@ registerXQueryModule(`
     };
 `);
 
-
 // How to run XQUF:
 /**
 registerXQueryModule(`
