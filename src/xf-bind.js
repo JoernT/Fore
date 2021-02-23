@@ -5,57 +5,6 @@ import {XPathUtil} from './xpath-util.js';
 // import {Fore} from "./fore";
 import {foreElementMixin} from "./ForeElementMixin.js";
 
-function evaluateXPath (xpath, contextNode, formElement, namespaceResolver) {
-	return fx.evaluateXPath(
-		xpath,
-		contextNode,
-		null,
-		{},
-		fx.ANY_TYPE,
-        {
-		namespaceResolver,
-		defaultFunctionNamespaceURI: 'http://www.w3.org/2002/xforms',
-		moduleImports: {
-			xf: 'http://www.w3.org/2002/xforms'
-		},
-		currentContext: {formElement}
-	});
-}
-
-function evaluateXFormsXPathToNodes (xpath, contextNode, formElement, namespaceResolver) {
-	return fx.evaluateXPathToNodes(
-		xpath,
-		contextNode,
-		null,
-		{},
-		{
-		namespaceResolver,
-		defaultFunctionNamespaceURI: 'http://www.w3.org/2002/xforms',
-		moduleImports: {
-			xf: 'http://www.w3.org/2002/xforms'
-		},
-		currentContext: {formElement}
-	});
-}
-
-
-function evaluateXFormsXPathToBoolean(xpath, contextNode, formElement, namespaceResolver) {
-	return fx.evaluateXPathToBoolean(
-		xpath,
-		contextNode,
-		null,
-		{},
-		{
-		namespaceResolver,
-		defaultFunctionNamespaceURI: 'http://www.w3.org/2002/xforms',
-		moduleImports: {
-			xf: 'http://www.w3.org/2002/xforms'
-		},
-		currentContext: {formElement}
-	});
-}
-
-
 /**
  * XfBind declaratively attaches constraints to nodes in the data (instances).
  *
