@@ -1,3 +1,5 @@
+# Moved to https://github.com/Jinntec/Fore effective after 12.03.2021
+
 # Fore
 
 'situated in front of something else' - Merriam Webster
